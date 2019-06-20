@@ -85,32 +85,32 @@ func lexRawTokens(subCode: String) -> [Token] {
   guard !subCode.isEmpty else {
     return []
   }
-  var token: (token: Token, subCode: String)
+  var partialResponse: (token: Token, subCode: String)
   var tokens: [Token] = []
   
   switch subCode {
   case subCode where subCode.hasPrefix("{"):
-    token = (.openBrace, remove(token:"{", sourceCode: subCode))
+    partialResponse = (.openBrace, remove(token:"{", sourceCode: subCode))
   case subCode where subCode.hasPrefix("}"):
-    token = (.closeBrace, remove(token:"}", sourceCode: subCode))
+    partialResponse = (.closeBrace, remove(token:"}", sourceCode: subCode))
   case subCode where subCode.hasPrefix("("):
-    token = (.openParen, remove(token:"(", sourceCode: subCode))
+    partialResponse = (.openParen, remove(token:"(", sourceCode: subCode))
   case subCode where subCode.hasPrefix(")"):
-    token = (.closeParen, remove(token:")", sourceCode: subCode))
+    partialResponse = (.closeParen, remove(token:")", sourceCode: subCode))
   case subCode where subCode.hasPrefix(";"):
-    token = (.semicolon, remove(token:";", sourceCode: subCode))
+    partialResponse = (.semicolon, remove(token:";", sourceCode: subCode))
   case subCode where subCode.hasPrefix("return"):
-    token = (.returnKeyword, remove(token:"return", sourceCode: subCode))
+    partialResponse = (.returnKeyword, remove(token:"return", sourceCode: subCode))
   case subCode where subCode.hasPrefix("int"):
-    token = (.intKeyword, remove(token: "int", sourceCode: subCode))
+    partialResponse = (.intKeyword, remove(token: "int", sourceCode: subCode))
   case subCode where subCode.hasPrefix("main"):
-    token = (.identifier("main"), remove(token: "main", sourceCode: subCode))
+    partialResponse = (.identifier("main"), remove(token: "main", sourceCode: subCode))
   default:
-    token = getConstant(sourceCode: subCode)
+    partialResponse = getConstant(sourceCode: subCode)
   }
 
-  let remainingTokens = lexRawTokens(subCode: token.subCode)
-  tokens.append(token.token)
+  let remainingTokens = lexRawTokens(subCode: partialResponse.subCode)
+  tokens.append(partialResponse.token)
   tokens.append(contentsOf: remainingTokens)
   
   return tokens
