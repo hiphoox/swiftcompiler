@@ -1,0 +1,4 @@
+module llvmSupport {
+    umbrella "/Users/hiphoox/Development/Swift/Compiler/.build/checkouts/swift-llbuild/lib/llvm/Support/include"
+    export *
+}

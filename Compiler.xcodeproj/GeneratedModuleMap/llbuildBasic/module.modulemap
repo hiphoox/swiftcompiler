@@ -1,0 +1,4 @@
+module llbuildBasic {
+    umbrella "/Users/hiphoox/Development/Swift/Compiler/.build/checkouts/swift-llbuild/lib/Basic/include"
+    export *
+}
